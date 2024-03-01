@@ -42,20 +42,13 @@ public class LevelManager : MonoBehaviour
             _playerAnimation.StartRunning();
             _isLevelBegin = true;
         }
-#else
-        
-        if (Input.touchCount > 0)
-        {
-            _touchInput = Input.GetTouch(0);
-        }
-
-        if (_touchInput.phase == TouchPhase.Stationary && !_isLevelBegin)
+#endif
+        if (Input.touchCount == 1)
         {
             GameStarted.Invoke();
             _playerAnimation.StartRunning();
             _isLevelBegin = true;
         }
-#endif
 
 
         if (_isLevelBegin)
