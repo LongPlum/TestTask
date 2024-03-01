@@ -30,6 +30,6 @@ public class LevelManager : MonoBehaviour
                 Component.ObstacleMoveSpeed += Acceleration; 
             }
         }
-      
+        }
     }
 }
