@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private ObstaclePool _obstaclePool;
     [SerializeField] private PlayerAnimation _playerAnimation;
+    [SerializeField] private PlayerCollision _playerCollision;
 
 
     public float GameTime { get; private set; }
@@ -18,6 +19,16 @@ public class LevelManager : MonoBehaviour
     private Touch _touchInput;
 
     public Action GameStarted;
+
+    private void StopLevel()
+    {
+        _isLevelBegin = false;
+    }
+
+    void Start()
+    {
+        _playerCollision.GameOver += StopLevel;
+    }
 
     void Update()
     {

@@ -25,8 +25,9 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        //_playerCollision.PlayerCollisionHappens += SpawnStop;
         _levelmanager.GameStarted += StartSpawn;
+        _playerCollision.GameOver += StopSpawn;
+        _playerCollision.GameOver += StopAllObstacles;
 
         _obstacleEnumValues = (ObstaclePoolItem[])Enum.GetValues(typeof(ObstaclePoolItem));
         StartCoroutine(DelaySpawn(_spawnDelayTime));
@@ -39,6 +40,7 @@ public class SpawnManager : MonoBehaviour
             _timer += Time.deltaTime;
             if (_timer >= _spawnTimer)
             {
+                //pomenyat
                 _currentGameObject = _obstaclePool.TakeObstacle(ItemToSpawn);
                 _currentGameObject.GetComponent<DirectionalMovement>().ObstacleMoveSpeed = _obstacleStartMoveSpeed + _levelmanager.Acceleration;
                 _currentGameObject.transform.position = new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), 0, UnityEngine.Random.Range(25, 30));
@@ -65,6 +67,14 @@ public class SpawnManager : MonoBehaviour
     {
         _isSpawnAllowed = false;
     }
+
+    private void StopAllObstacles()
+    {
+        foreach (var obstacle in _obstaclePool.ObstacleOnSceneDirMove)
+        {
+            obstacle.ObstacleMoveSpeed = 0;
+        }
+    }   
     
     private IEnumerator DelaySpawn(float _spawnDelayTime)
     {

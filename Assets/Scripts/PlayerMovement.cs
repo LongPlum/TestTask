@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rollDuration = 2f;
     [SerializeField] private float _minDistanceForSwipe =0.5f;
     [SerializeField] private PlayerAnimation _playerAnimation;
+    [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private BoxCollider _playerCollider;
 
@@ -102,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _levelManager.GameStarted += EnableMovement;
+        _playerCollision.GameOver += DisableMovement;
         //_playerColliderR = _playerCollider.; //œŒÃ≈Õﬂ“‹
     }
 

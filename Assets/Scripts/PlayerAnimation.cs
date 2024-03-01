@@ -27,4 +27,8 @@ public class PlayerAnimation : MonoBehaviour
         _playerAnimator.CrossFadeInFixedTime(_slide, 0.2f);
     }
 
+    public void PlayerDeath()
+    {
+    }
+
 }
