@@ -10,7 +10,7 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private float _knockBackDuration;
     [SerializeField] private float _knockBackDistance;
 
-    public event Action<float> OnPlayerCollision;
+   // public event Action<float> PlayerCollisionHappens;
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class PlayerCollision : MonoBehaviour
         {
             _obstaclePool.ReleaseObstacle(obs.gameObject);
 
-
+            /*
             foreach (var Obstacle in _obstaclePool.ObstacleOnScene)
             {
                 var movementComponent = Obstacle.GetComponent<DirectionalMovement>();
@@ -36,8 +36,8 @@ public class PlayerCollision : MonoBehaviour
                     .OnUpdate(() => movementComponent.ObstacleMoveSpeed = obstacleSpeed)
                     .OnKill(() => movementComponent.ObstacleMoveSpeed = obstacleSpeed);
             }
-
-            OnPlayerCollision.Invoke(_knockBackDuration);
+            */
+           // PlayerCollisionHappens.Invoke(_knockBackDuration);
     
         }
     

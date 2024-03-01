@@ -13,10 +13,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rollDuration = 2f;
     [SerializeField] private float _minDistanceForSwipe =0.5f;
     [SerializeField] private PlayerAnimation _playerAnimation;
+    [SerializeField] private LevelManager _levelManager;
+    [SerializeField] private BoxCollider _playerCollider;
 
 
 
-    private SphereCollider _playerCollider;
+
     private Sequence _slideTween;
     private bool _isJump;
     private float _moveHorizontal;
@@ -30,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _beginTouchPos;
     private Vector2 _moveTouchPos;
     private Vector2 _swipeDirection;
+    private bool _isMovementAllowed;
 
 
 
@@ -86,25 +89,28 @@ public class PlayerMovement : MonoBehaviour
         _isRightBorder = posNext.x >= _bounds;
     }
 
+    private void DisableMovement()
+    {
+        _isMovementAllowed = false;
+    }
+    private void EnableMovement()
+    {
+        _isMovementAllowed = true;
+    }
+
 
     private void Start()
     {
-       // _playerCollider = gameObject.GetComponent<SphereCollider>();
-        //_playerColliderR = _playerCollider.radius;
-
-        /*
-        _slideTween = DOTween.Sequence()
-      .Append(transform.DOScaleY(transform.localScale.y / 2, _rollDuration / 2))
-      .Append(transform.DOScaleY(transform.localScale.y, _rollDuration / 2))
-      .Insert(0, transform.DOMoveY(_playerColliderR / 2, _rollDuration / 2))
-      .Insert(_rollDuration / 2, transform.DOMoveY(_playerColliderR, _rollDuration / 2));
-        */
+        _levelManager.GameStarted += EnableMovement;
+        //_playerColliderR = _playerCollider.; //œŒÃ≈Õﬂ“‹
     }
 
     private void Update()
     {
+        if (_isMovementAllowed)
+        {
 #if UNITY_EDITOR
-        PlayerKeyboardInput();
+            PlayerKeyboardInput();
 #else
         if (Input.touchCount == 1)
         {
@@ -112,66 +118,69 @@ public class PlayerMovement : MonoBehaviour
         }
 #endif
 
-        _gravityAcc -= CalculateGravity();
-        var dir = CalculateDir();
-        var posCur = transform.position;
-        var posNext = dir + posCur;
+            _gravityAcc -= CalculateGravity();
+            var dir = CalculateDir();
+            var posCur = transform.position;
+            var posNext = dir + posCur;
 
-        CheckNextPos(posNext);
+            CheckNextPos(posNext);
 
-        if (_isRightBorder || _isLeftBorder)
-        {
-            if (_isLeftBorder)
+            if (_isRightBorder || _isLeftBorder)
+            {
+                if (_isLeftBorder)
+                {
+                    posCur = transform.position;
+                    posCur.x = -_bounds;
+                    transform.position = posCur;
+                }
+                else if (_isRightBorder)
+                {
+                    posCur = transform.position;
+                    posCur.x = _bounds;
+                    transform.position = posCur;
+                }
+
+                dir.x = 0;
+            }
+
+
+            if (_isGrounded && !_isJump)
+            {
+                dir.y = 0;
+                _gravityAcc = Mathf.Max(0, _gravityAcc);
+            }
+
+            if (dir != Vector3.zero)
+            {
+                transform.Translate(dir);
+                _moveHorizontal = _moveVertical = 0;
+                _isJump = false;
+            }
+
+            if (_isGrounded)
+            {
+                if (_moveVertical < 0)
+                {
+                    _playerAnimation.PlayerSlide();
+                }
+
+                else if (_moveVertical > 0 && !_isJump)
+                {
+                    _gravityAcc = _jumpForce;
+                    _isJump = true;
+                    _playerAnimation.PlayerJump();
+                }
+            }
+
+            if (_isUnderGround)
             {
                 posCur = transform.position;
-                posCur.x = -_bounds;
-                transform.position = posCur;
-            }
-            else if (_isRightBorder)
-            {
-                posCur = transform.position;
-                posCur.x = _bounds;
+                posCur.y = _playerColliderR;
                 transform.position = posCur;
             }
 
-            dir.x = 0;
+
         }
-
-
-        if (_isGrounded && !_isJump)
-        {
-            dir.y = 0;
-            _gravityAcc = Mathf.Max(0, _gravityAcc);
-        }
-
-        if (dir != Vector3.zero)
-        {
-            transform.Translate(dir);
-            _moveHorizontal = _moveVertical = 0;
-            _isJump = false;
-        }
-
-        if (_isGrounded)//&& !_slideTween.IsPlaying()
-        {
-            if (_moveVertical < 0)
-                Debug.Log("aboba")
-;                //_slideTween.Restart();
-            else if (_moveVertical > 0 && !_isJump)
-            {
-                _gravityAcc = _jumpForce;
-                _isJump = true;
-                _playerAnimation.PlayerJump();
-            }
-        }
-
-        if (_isUnderGround)
-        {
-            posCur = transform.position;
-            posCur.y = _playerColliderR;
-            transform.position = posCur;
-        }
-
-
     }
 }
 

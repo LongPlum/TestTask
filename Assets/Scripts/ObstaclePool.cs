@@ -9,8 +9,8 @@ public class ObstaclePool : MonoBehaviour
         [SerializeField] private int _poolSize;
         [SerializeField] private List<GameObject> _pooledGameObjects = new();
 
-        private Dictionary<_obstaclePoolItem, Stack<GameObject>> _dictionaryPool = new();
-        private Dictionary<_obstaclePoolItem, Func<GameObject>> _factory = new();
+        private Dictionary<ObstaclePoolItem, Stack<GameObject>> _dictionaryPool = new();
+        private Dictionary<ObstaclePoolItem, Func<GameObject>> _factory = new();
         private List<GameObject> _obstacleOnScene = new();
         private List<DirectionalMovement> _obstacleOnSceneDirMove = new();
 
@@ -28,7 +28,7 @@ public class ObstaclePool : MonoBehaviour
     private void Start()
         {
 
-            var enumValues = Enum.GetNames(typeof(_obstaclePoolItem));
+            var enumValues = Enum.GetNames(typeof(ObstaclePoolItem));
 
             foreach (var item in _pooledGameObjects)
             {
@@ -92,7 +92,7 @@ public class ObstaclePool : MonoBehaviour
             }
         }
 
-        public GameObject TakeObstacle(_obstaclePoolItem obstacleType)
+        public GameObject TakeObstacle(ObstaclePoolItem obstacleType)
         {
             if (_dictionaryPool.TryGetValue(obstacleType, out Stack<GameObject> obstacleStack))
             {
@@ -140,7 +140,7 @@ public class ObstaclePool : MonoBehaviour
     }
 
 
-    public enum _obstaclePoolItem
+    public enum ObstaclePoolItem
     {
         Obstacle_Branch,
         Obstacle_Log,

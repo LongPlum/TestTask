@@ -15,23 +15,26 @@ public class SpawnManager : MonoBehaviour
 
 
     private GameObject _currentGameObject;
-    private _obstaclePoolItem[] _obstacleEnumValues;
+    private ObstaclePoolItem[] _obstacleEnumValues;
     private float _timer;
-    private bool _flagDelay = false;
+    private bool _isSpawnDelayed;
+    private bool _isSpawnAllowed;
 
 
-    private _obstaclePoolItem ItemToSpawn => _obstacleEnumValues[UnityEngine.Random.Range(0, _obstaclePool.GetPoolItemLength)];
+    private ObstaclePoolItem ItemToSpawn => _obstacleEnumValues[UnityEngine.Random.Range(0, _obstaclePool.GetPoolItemLength)];
 
     void Start()
     {
-        _playerCollision.OnPlayerCollision += SpawnStop;
-        _obstacleEnumValues = (_obstaclePoolItem[])Enum.GetValues(typeof(_obstaclePoolItem));
+        //_playerCollision.PlayerCollisionHappens += SpawnStop;
+        _levelmanager.GameStarted += StartSpawn;
+
+        _obstacleEnumValues = (ObstaclePoolItem[])Enum.GetValues(typeof(ObstaclePoolItem));
         StartCoroutine(DelaySpawn(_spawnDelayTime));
     }
 
     private void Update()
     {
-        if (_flagDelay)
+        if (_isSpawnDelayed && _isSpawnAllowed)
         {
             _timer += Time.deltaTime;
             if (_timer >= _spawnTimer)
@@ -53,14 +56,19 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private void SpawnStop(float delay)
+    private void StartSpawn()
     {
-        _timer -= delay;
+        _isSpawnAllowed = true;
     }
-
+    
+    private void StopSpawn()
+    {
+        _isSpawnAllowed = false;
+    }
+    
     private IEnumerator DelaySpawn(float _spawnDelayTime)
     {
         yield return new WaitForSeconds(_spawnDelayTime);
-        _flagDelay = true;
+        _isSpawnDelayed = true;
     }
 }
