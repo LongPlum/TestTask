@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _bounds = 2f;
     [SerializeField] private float _rollDuration = 2f;
-    [SerializeField] private float _minDistanceForSwipe =0.5f;
+    [SerializeField] private float _minDistanceForSwipe = 0.5f;
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private LevelManager _levelManager;
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
                 _moveTouchPos = touchInput.position;
                 if (Vector2.Distance(_beginTouchPos, _moveTouchPos) > _minDistanceForSwipe)
                 {
-                   _swipeDirection = _beginTouchPos - _moveTouchPos;
+                    _swipeDirection = _beginTouchPos - _moveTouchPos;
 
                     if (Mathf.Abs(_swipeDirection.x) > Mathf.Abs(_swipeDirection.y))
                     {
@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 CalculateDir()
     {
-       return new Vector3(_moveHorizontal * _moveSpeed * Time.deltaTime, _gravityAcc * Time.deltaTime, 0);
+        return new Vector3(_moveHorizontal * _moveSpeed * Time.deltaTime, _gravityAcc * Time.deltaTime, 0);
     }
 
     private void CheckNextPos(Vector3 posNext)
@@ -113,14 +113,13 @@ public class PlayerMovement : MonoBehaviour
         {
 #if UNITY_EDITOR
             PlayerKeyboardInput();
-#else
-        if (Input.touchCount == 1)
-        {
-         PlayerPhoneInput(Input.GetTouch(0));
-        }
 #endif
-
-            _gravityAcc -= CalculateGravity();
+            if (Input.touchCount == 1)
+            {
+                PlayerPhoneInput(Input.GetTouch(0));
+            }
+            
+                        _gravityAcc -= CalculateGravity();
             var dir = CalculateDir();
             var posCur = transform.position;
             var posNext = dir + posCur;
