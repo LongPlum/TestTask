@@ -10,10 +10,13 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private float _knockBackDuration;
     [SerializeField] private float _knockBackDistance;
     [SerializeField] private GameObject _gameOverMenu;
+    [SerializeField] private PlayerAnimation _playerAnimation;
+
 
 
     public event Action GameOver;
 
+   
     private void Start()
     {
     }
@@ -24,6 +27,7 @@ public class PlayerCollision : MonoBehaviour
         {
             _obstaclePool.ReleaseObstacle(obs.gameObject);
             GameOver.Invoke();
+            _playerAnimation.PlayerDeath();
             _gameOverMenu.SetActive(true);
         }
     

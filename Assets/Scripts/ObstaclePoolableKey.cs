@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class ObstaclePoolableKey : MonoBehaviour
 {
-     public ObstaclePoolItem poolKey { get => key; }
-    [SerializeField] private ObstaclePoolItem key;
+     public ObstaclePoolItem PoolKey { get => _key; }
+    [SerializeField] private ObstaclePoolItem _key;
 }

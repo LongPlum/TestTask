@@ -9,6 +9,8 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly int _jump = Animator.StringToHash("Jump");
     private static readonly int _run = Animator.StringToHash("Run");
     private static readonly int _slide = Animator.StringToHash("Slide");
+    private static readonly int _death = Animator.StringToHash("Death");
+
 
 
 
@@ -29,6 +31,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void PlayerDeath()
     {
+        _playerAnimator.CrossFadeInFixedTime(_death, 0.2f);
     }
 
 }

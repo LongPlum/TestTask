@@ -40,9 +40,8 @@ public class SpawnManager : MonoBehaviour
             _timer += Time.deltaTime;
             if (_timer >= _spawnTimer)
             {
-                //pomenyat
                 _currentGameObject = _obstaclePool.TakeObstacle(ItemToSpawn);
-                _currentGameObject.GetComponent<DirectionalMovement>().ObstacleMoveSpeed = _obstacleStartMoveSpeed + _levelmanager.Acceleration;
+                _obstaclePool.GetDirMoveSpeedComponment(_currentGameObject).ObstacleMoveSpeed = _obstacleStartMoveSpeed + _levelmanager.Acceleration;
                 _currentGameObject.transform.position = new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), 0, UnityEngine.Random.Range(25, 30));
 
                 _timer = 0f;

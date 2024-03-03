@@ -16,8 +16,6 @@ public class LevelManager : MonoBehaviour
 
     private float _accelerationTimeCounter;
     private bool _isLevelBegin;
-    private Touch _touchInput;
-
     public Action GameStarted;
 
     private void StopLevel()

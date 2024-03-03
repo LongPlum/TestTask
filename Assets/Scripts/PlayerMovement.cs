@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed = 7f;
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _bounds = 2f;
-    [SerializeField] private float _rollDuration = 2f;
     [SerializeField] private float _minDistanceForSwipe = 0.5f;
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private PlayerCollision _playerCollision;
@@ -20,12 +19,11 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private Sequence _slideTween;
     private bool _isJump;
     private float _moveHorizontal;
     private float _moveVertical;
     private float _gravityAcc;
-    private float _playerColliderR;
+    private float _playerColliderY;
     private bool _isGrounded;
     private bool _isUnderGround;
     private bool _isLeftBorder;
@@ -85,10 +83,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckNextPos(Vector3 posNext)
     {
-        _isGrounded = _isUnderGround = posNext.y <= _playerColliderR;
+        _isGrounded = _isUnderGround = posNext.y <= _playerColliderY;
         _isLeftBorder = posNext.x <= -_bounds;
         _isRightBorder = posNext.x >= _bounds;
     }
+
 
     private void DisableMovement()
     {
@@ -104,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _levelManager.GameStarted += EnableMovement;
         _playerCollision.GameOver += DisableMovement;
-        //_playerColliderR = _playerCollider.; //œŒÃ≈Õﬂ“‹
+        _playerColliderY = _playerCollider.transform.localPosition.y; 
     }
 
     private void Update()
@@ -119,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
                 PlayerPhoneInput(Input.GetTouch(0));
             }
             
-                        _gravityAcc -= CalculateGravity();
+           _gravityAcc -= CalculateGravity();
             var dir = CalculateDir();
             var posCur = transform.position;
             var posNext = dir + posCur;
@@ -128,22 +127,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (_isRightBorder || _isLeftBorder)
             {
-                if (_isLeftBorder)
-                {
-                    posCur = transform.position;
-                    posCur.x = -_bounds;
-                    transform.position = posCur;
-                }
-                else if (_isRightBorder)
-                {
-                    posCur = transform.position;
-                    posCur.x = _bounds;
-                    transform.position = posCur;
-                }
-
+                posCur = transform.position;
+                posCur.x = _isRightBorder ? _bounds : -_bounds;
+                transform.position = posCur;
                 dir.x = 0;
             }
-
 
             if (_isGrounded && !_isJump)
             {
@@ -158,9 +146,10 @@ public class PlayerMovement : MonoBehaviour
                 _isJump = false;
             }
 
+
             if (_isGrounded)
             {
-                if (_moveVertical < 0)
+                if (_moveVertical < 0) // ÔÓ˜ËÌËÚ¸
                 {
                     _playerAnimation.PlayerSlide();
                 }
@@ -176,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
             if (_isUnderGround)
             {
                 posCur = transform.position;
-                posCur.y = _playerColliderR;
+                posCur.y = _playerColliderY;
                 transform.position = posCur;
             }
 
