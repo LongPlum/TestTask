@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour
 
     public float GameTime { get; private set; }
     public float Acceleration { get; private set; }
+    public float Score { get; private set; }
+
 
     private float _accelerationTimeCounter;
     private bool _isLevelBegin;
@@ -53,6 +55,12 @@ public class LevelManager : MonoBehaviour
         {
 
             GameTime += Time.deltaTime;
+            if (Math.Round(GameTime % 1) == 0)
+            {
+                Score += 1;
+                Debug.Log(Score);
+            }
+
             _accelerationTimeCounter += Time.deltaTime;
 
             if (_accelerationTimeCounter >= 5)
@@ -69,5 +77,8 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
+
+
+
     }
 }
