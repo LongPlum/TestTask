@@ -58,7 +58,6 @@ public class LevelManager : MonoBehaviour
             if (Math.Round(GameTime % 1) == 0)
             {
                 Score += 1;
-                Debug.Log(Score);
             }
 
             _accelerationTimeCounter += Time.deltaTime;

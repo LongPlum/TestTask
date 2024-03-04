@@ -6,13 +6,13 @@ using TMPro;
 public class PlayerPoints : MonoBehaviour
 {
     [SerializeField] private LevelManager _levelManager;
-    private TextMeshPro _score;
+    private TMP_Text _score;
     private bool _isGameStarted;
 
     void Start()
     {
         _levelManager.GameStarted += GameStart;
-        _score = gameObject.GetComponent<TextMeshPro>();
+        _score = gameObject.GetComponent<TMP_Text>();
     }
 
     void Update()
