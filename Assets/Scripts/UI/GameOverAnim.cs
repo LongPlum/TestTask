@@ -20,5 +20,9 @@ public class GameOverAnim : MonoBehaviour
         _gameOverTextTween.SetLoops(-1);
         _gameOverTextTween.Play();
     }
+    private void OnDisable()
+    {
+        _gameOverTextTween.Kill();
+    }
 
 }

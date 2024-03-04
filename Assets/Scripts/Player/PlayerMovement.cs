@@ -69,6 +69,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void StopAllMovementCoroutines()
+    {
+        StopAllCoroutines();
+    }
+
+    private IEnumerator SlideEnableMovement()
+    {
+        yield return new WaitForSeconds(1);
+        EnableMovement();
+    }
 
     private float CalculateGravity()
     {
@@ -102,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _levelManager.GameStarted += EnableMovement;
         _playerCollision.GameOver += DisableMovement;
+        _playerCollision.GameOver += StopAllCoroutines;
         _playerColliderY = _playerCollider.transform.localPosition.y; 
     }
 
@@ -116,13 +127,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 PlayerPhoneInput(Input.GetTouch(0));
             }
-            
-           _gravityAcc -= CalculateGravity();
+
+
+            _gravityAcc -= CalculateGravity();
             var dir = CalculateDir();
             var posCur = transform.position;
             var posNext = dir + posCur;
 
             CheckNextPos(posNext);
+
 
             if (_isRightBorder || _isLeftBorder)
             {
@@ -131,6 +144,8 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = posCur;
                 dir.x = 0;
             }
+
+            
 
             if (_isGrounded && !_isJump)
             {
@@ -145,13 +160,14 @@ public class PlayerMovement : MonoBehaviour
                 _isJump = false;
             }
 
-            
 
             if (_isGrounded)
             {
-                if (_moveVertical < 0) // починить
+                if (_moveVertical < 0) 
                 {
                     _playerAnimation.PlayerSlide();
+                    DisableMovement();
+                    StartCoroutine(SlideEnableMovement());
                 }
 
                 else if (_moveVertical > 0 && !_isJump)
@@ -161,6 +177,8 @@ public class PlayerMovement : MonoBehaviour
                     _playerAnimation.PlayerJump();
                 }
             }
+
+           
 
             if (_isUnderGround)
             {

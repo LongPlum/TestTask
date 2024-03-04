@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
 
     private float _accelerationTimeCounter;
     private bool _isLevelBegin;
+    private bool _isGameWasStarted;
     public Action GameStarted;
 
     private void StopLevel()
@@ -28,6 +29,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         _playerCollision.GameOver += StopLevel;
+        _isGameWasStarted = true;
     }
 
     void Update()
@@ -36,18 +38,22 @@ public class LevelManager : MonoBehaviour
 
 #if UNITY_EDITOR
 
-        if (Input.GetKeyDown(KeyCode.Space) && !_isLevelBegin)
+        if (Input.GetKeyDown(KeyCode.Space) && !_isLevelBegin && _isGameWasStarted)
         {
             GameStarted.Invoke();
             _playerAnimation.StartRunning();
             _isLevelBegin = true;
+            _isGameWasStarted = false;
+
         }
 #endif
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1 && !_isLevelBegin)
         {
             GameStarted.Invoke();
             _playerAnimation.StartRunning();
             _isLevelBegin = true;
+            _isGameWasStarted = false;
+
         }
 
 

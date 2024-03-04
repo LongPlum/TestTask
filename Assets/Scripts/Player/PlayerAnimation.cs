@@ -13,7 +13,6 @@ public class PlayerAnimation : MonoBehaviour
 
 
 
-
     public void PlayerJump()
     {
         _playerAnimator.CrossFadeInFixedTime(_jump, 0.2f);
