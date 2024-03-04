@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private ObstaclePool _obstaclePool;
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private PlayerCollision _playerCollision;
+    [SerializeField] private PauseManager _pauseManager;
+
 
 
     public float GameTime { get; private set; }
@@ -19,8 +21,17 @@ public class LevelManager : MonoBehaviour
     private float _accelerationTimeCounter;
     private bool _isLevelBegin;
     private bool _isGameWasStarted;
+    private bool _isGamePaused;
     public Action GameStarted;
 
+    private void PauseGame()
+    {
+        _isGamePaused = true;
+    }
+    private void ResumeGame()
+    {
+        _isGamePaused = false;
+    }
     private void StopLevel()
     {
         _isLevelBegin = false;
@@ -29,6 +40,8 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         _playerCollision.GameOver += StopLevel;
+        _pauseManager.GamePaused += PauseGame;
+        _pauseManager.GameResumed += ResumeGame;
         _isGameWasStarted = true;
     }
 
@@ -57,7 +70,7 @@ public class LevelManager : MonoBehaviour
         }
 
 
-        if (_isLevelBegin)
+        if (_isLevelBegin && !_isGamePaused)
         {
 
             GameTime += Time.deltaTime;

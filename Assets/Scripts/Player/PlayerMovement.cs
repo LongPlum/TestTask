@@ -16,8 +16,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private BoxCollider _playerCollider;
 
 
-
-
     private bool _isJump;
     private float _moveHorizontal;
     private float _moveVertical;

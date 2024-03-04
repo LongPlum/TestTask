@@ -12,14 +12,8 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private GameObject _gameOverMenu;
     [SerializeField] private PlayerAnimation _playerAnimation;
 
-
-
     public event Action GameOver;
 
-   
-    private void Start()
-    {
-    }
     
     private void OnTriggerEnter(Collider other)
     {
