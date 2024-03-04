@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerPoints : MonoBehaviour
+public class PlayerPointsUI : MonoBehaviour
 {
     [SerializeField] private LevelManager _levelManager;
     private TMP_Text _score;

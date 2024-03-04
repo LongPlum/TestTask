@@ -11,7 +11,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private PauseManager _pauseManager;
     [SerializeField] private AdManager _adManager;
-    [SerializeField] private GameObject _adCanvas;
+    [SerializeField] private GameObject _ad;
+    [SerializeField] private float _secToShowAd = 3;
+
 
 
 
@@ -31,8 +33,8 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator EnableAdCanvas()
     {
-        yield return new WaitForSeconds(2);
-        _adCanvas.SetActive(true);
+        yield return new WaitForSeconds(_secToShowAd);
+        _ad.SetActive(true);
     }
 
     private void RewardPlayer()
@@ -54,7 +56,6 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(EnableAdCanvas());
         _playerCollision.GameOver += StopLevel;
         _pauseManager.GamePaused += PauseGame;
         _pauseManager.GameResumed += ResumeGame;
@@ -74,16 +75,16 @@ public class LevelManager : MonoBehaviour
             _playerAnimation.StartRunning();
             _isLevelBegin = true;
             _isGameWasStarted = false;
-
+            StartCoroutine(EnableAdCanvas());
         }
 #endif
-        if (Input.touchCount == 1 && !_isLevelBegin)
+        if (Input.touchCount == 1 && !_isLevelBegin && _isGameWasStarted)
         {
             GameStarted.Invoke();
             _playerAnimation.StartRunning();
             _isLevelBegin = true;
             _isGameWasStarted = false;
-
+            StartCoroutine(EnableAdCanvas());
         }
 
 

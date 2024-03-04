@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdCanvas : MonoBehaviour
+public class ShowAd : MonoBehaviour
 {
     [SerializeField] private PauseManager _pauseManager;
     [SerializeField] private AdManager _adManager;
+
+    private void Awake()
+    {
+        _adManager.RewardPlayer += PlayerRewarded;    
+    }
 
     private void OnEnable()
     {
@@ -13,8 +18,9 @@ public class AdCanvas : MonoBehaviour
         _adManager.PlayRewardedAd();
     }
 
-    private void OnDisable()
+    public void PlayerRewarded()
     {
         _pauseManager.Resume();
+        gameObject.SetActive(false);
     }
 }
