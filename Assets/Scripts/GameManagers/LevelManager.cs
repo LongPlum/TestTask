@@ -10,6 +10,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private PauseManager _pauseManager;
+    [SerializeField] private AdManager _adManager;
+    [SerializeField] private GameObject _adCanvas;
+
+
 
 
 
@@ -24,6 +28,17 @@ public class LevelManager : MonoBehaviour
     private bool _isGamePaused;
     public Action GameStarted;
 
+
+    private IEnumerator EnableAdCanvas()
+    {
+        yield return new WaitForSeconds(2);
+        _adCanvas.SetActive(true);
+    }
+
+    private void RewardPlayer()
+    {
+        Score *= 2;
+    }
     private void PauseGame()
     {
         _isGamePaused = true;
@@ -39,9 +54,11 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(EnableAdCanvas());
         _playerCollision.GameOver += StopLevel;
         _pauseManager.GamePaused += PauseGame;
         _pauseManager.GameResumed += ResumeGame;
+        _adManager.RewardPlayer += RewardPlayer;
         _isGameWasStarted = true;
     }
 
