@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1046900131683",
+    "firebase_url": "https://testtask1-d1eff-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "testtask1-d1eff",
     "storage_bucket": "testtask1-d1eff.appspot.com"
   },
@@ -12,7 +13,12 @@
           "package_name": "com.DefaultCompany.TestTask1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1046900131683-kl303kvjai9dhqhsicbaias88phjm1s8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA4jt32GyYP5U0ft1h7_f0v83ip7XaAJoo"
@@ -20,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046900131683-kl303kvjai9dhqhsicbaias88phjm1s8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

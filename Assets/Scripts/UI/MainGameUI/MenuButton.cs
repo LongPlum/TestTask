@@ -8,7 +8,7 @@ public class MenuButton : MonoBehaviour
 
     public void EnableMenu()
     {
-        MainMenu.SetActive(MainMenu.activeSelf ? false : true);
+        MainMenu.SetActive(true);
     }
     
 }

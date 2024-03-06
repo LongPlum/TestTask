@@ -9,7 +9,7 @@ using Firebase.Extensions;
 
 public class FireBaseManager : MonoBehaviour
 {
-    [SerializeField] LevelManager _levelManager;
+    private LevelManager _levelManager;
     private DatabaseReference _databaseReference;
     private FirebaseAuth _auth;
     private FirebaseUser _user;
@@ -25,7 +25,26 @@ public class FireBaseManager : MonoBehaviour
 
     public void SafeScore()
     {
-        _databaseReference.Child("Users").Child(_user.DisplayName).Child(_levelManager.Score.ToString());
+        if (_levelManager == null)
+        {
+            _levelManager = GetComponent<LevelManager>();
+        }
+        _databaseReference.Child("Users").Child(_user.DisplayName).GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("Failed");
+            }
+            else if (task.IsCompleted)
+            {
+                float DbScore = (float)task.Result.Value;
+                if (DbScore < _levelManager.Score)
+                {
+                    _databaseReference.Child("Users").Child(_user.DisplayName).Child(_levelManager.Score.ToString());
+                }
+            }
+        });
+        
     }
 
     public void TakeUsersScore()
@@ -34,12 +53,11 @@ public class FireBaseManager : MonoBehaviour
         {
             if (task.IsFaulted)
             {
-                // Handle the error...
+                Debug.Log("Failed");
             }
             else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                // Do something with snapshot...
             }
         });
     }
