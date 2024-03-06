@@ -93,9 +93,9 @@ public class ObstaclePool : MonoBehaviour
         }
     }
 
-    public GameObject TakeObstacle(ObstaclePoolItem obstacleType)
+    public GameObject TakeObstacle(ObstaclePoolItem ObstacleType)
     {
-        if (_dictionaryPool.TryGetValue(obstacleType, out Stack<GameObject> obstacleStack))
+        if (_dictionaryPool.TryGetValue(ObstacleType, out Stack<GameObject> obstacleStack))
         {
             if (obstacleStack.Count > 0)
             {
@@ -106,21 +106,21 @@ public class ObstaclePool : MonoBehaviour
                 return go;
             }
 
-            GameObject factoryGo = _factory[obstacleType]();
+            GameObject factoryGo = _factory[ObstacleType]();
             _obstacleOnScene.Add(factoryGo);
             _obstacleOnSceneDirMove.Add(factoryGo.GetComponent<DirectionalMovement>());
             factoryGo.SetActive(true);
             return factoryGo;
         }
-        throw new ArgumentException($"{obstacleType} does not exist");
+        throw new ArgumentException($"{ObstacleType} does not exist");
     }
 
-    public void ReleaseObstacle(GameObject obstacleToRelease)
+    public void ReleaseObstacle(GameObject ObstacleToRelease)
     {
-        var poolKeyComp = obstacleToRelease.GetComponentInParent<ObstaclePoolableKey>();
+        var poolKeyComp = ObstacleToRelease.GetComponentInParent<ObstaclePoolableKey>();
         if (poolKeyComp != null)
         {
-            var poolableArray = obstacleToRelease.GetComponentsInParent<IPoolableMonobehaviour>();
+            var poolableArray = ObstacleToRelease.GetComponentsInParent<IPoolableMonobehaviour>();
             if (poolableArray != null && poolableArray.Length > 0)
             {
                 foreach (var item in poolableArray)
@@ -135,12 +135,12 @@ public class ObstaclePool : MonoBehaviour
             _dictionaryPool[poolKeyComp.PoolKey].Push(poolKeyComp.gameObject);
         }
         else
-            Destroy(obstacleToRelease);
+            Destroy(ObstacleToRelease);
     }
 
-    public DirectionalMovement GetDirMoveSpeedComponment(GameObject go)
+    public DirectionalMovement GetDirMoveSpeedComponment(GameObject Go)
     {
-       return _obstacleOnSceneDirMove[_obstacleOnScene.IndexOf(go)];
+       return _obstacleOnSceneDirMove[_obstacleOnScene.IndexOf(Go)];
     }
 }
 

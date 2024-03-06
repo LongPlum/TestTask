@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -14,15 +16,16 @@ public class PlayerCollision : MonoBehaviour
 
     public event Action GameOver;
 
-    
+   
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.parent.TryGetComponent<Obstacle>(out Obstacle obs))
         {
-            _obstaclePool.ReleaseObstacle(obs.gameObject);
             GameOver.Invoke();
+            _obstaclePool.ReleaseObstacle(obs.gameObject);
             _playerAnimation.PlayerDeath();
             _gameOverMenu.SetActive(true);
+            FireBaseManager.FireBaseManagerInstance.SafeScore();
         }
     
     }

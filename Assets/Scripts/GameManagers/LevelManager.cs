@@ -14,20 +14,16 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject _ad;
     [SerializeField] private float _secToShowAd = 3;
 
-
-
-
-
+    private float _accelerationTimeCounter;
+    private bool _isLevelBegin;
+    private bool _isGameWasStarted;
+    private bool _isGamePaused;
 
     public float GameTime { get; private set; }
     public float Acceleration { get; private set; }
     public float Score { get; private set; }
 
-
-    private float _accelerationTimeCounter;
-    private bool _isLevelBegin;
-    private bool _isGameWasStarted;
-    private bool _isGamePaused;
+    
     public Action GameStarted;
 
 

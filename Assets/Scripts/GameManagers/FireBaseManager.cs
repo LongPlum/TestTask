@@ -6,6 +6,9 @@ using Firebase;
 using UnityEngine.SceneManagement;
 using System;
 using Firebase.Extensions;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class FireBaseManager : MonoBehaviour
 {
@@ -14,21 +17,23 @@ public class FireBaseManager : MonoBehaviour
     private FirebaseAuth _auth;
     private FirebaseUser _user;
 
-    public Action<string> ErrorHappens;
+    public event Action<string> ErrorEvent;
+
+    public static FireBaseManager FireBaseManagerInstance { get; private set; }
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
         _auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+        FireBaseManagerInstance = this;
+        DontDestroyOnLoad(FireBaseManagerInstance);
     }
+
 
     public void SafeScore()
     {
-        if (_levelManager == null)
-        {
-            _levelManager = GetComponent<LevelManager>();
-        }
+        _levelManager = FindObjectOfType<LevelManager>();
+
         _databaseReference.Child("Users").Child(_user.DisplayName).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
@@ -37,34 +42,35 @@ public class FireBaseManager : MonoBehaviour
             }
             else if (task.IsCompleted)
             {
-                float DbScore = (float)task.Result.Value;
-                if (DbScore < _levelManager.Score)
+                if (task.Result.Value == null || Convert.ToSingle(task.Result.Value) < _levelManager.Score)
                 {
-                    _databaseReference.Child("Users").Child(_user.DisplayName).Child(_levelManager.Score.ToString());
+                    _databaseReference.Child("Users").Child(_user.DisplayName).SetValueAsync(Convert.ToDouble(_levelManager.Score));
                 }
             }
         });
-        
     }
 
-    public void TakeUsersScore()
+    public async Task<Dictionary<string, double>> TakeUsersScoreAsync()
     {
-        _databaseReference.Child("Users").GetValueAsync().ContinueWithOnMainThread(task =>
+        Dictionary<string, double> dataDictionary = new ();
+        var result = await _databaseReference.Child("Users").GetValueAsync();
+
+        IEnumerable<DataSnapshot> snapshotChildren = result.Children;
+        foreach (DataSnapshot childSnapshot in snapshotChildren)
         {
-            if (task.IsFaulted)
-            {
-                Debug.Log("Failed");
-            }
-            else if (task.IsCompleted)
-            {
-                DataSnapshot snapshot = task.Result;
-            }
-        });
+            dataDictionary.Add(childSnapshot.Key, Convert.ToDouble(childSnapshot.Value));
+        }
+        var sortedByValue = dataDictionary.OrderByDescending(x => x.Value);
+        dataDictionary = new Dictionary<string, double>(sortedByValue);
+
+        return dataDictionary;
     }
 
-    public IEnumerator Login(string _email, string _password)
+
+
+    public IEnumerator Login(string Email, string Password)
     {
-        var LoginTask = _auth.SignInWithEmailAndPasswordAsync(_email, _password);
+        var LoginTask = _auth.SignInWithEmailAndPasswordAsync(Email, Password);
 
         yield return new WaitUntil(predicate: () => LoginTask.IsCompleted);
 
@@ -93,7 +99,7 @@ public class FireBaseManager : MonoBehaviour
                     message = "Account does not exist";
                     break;
             }
-            ErrorHappens.Invoke(message);
+            ErrorEvent.Invoke(message);
         }
         else
         {
@@ -102,10 +108,10 @@ public class FireBaseManager : MonoBehaviour
         }
     }
 
-    public IEnumerator Register(string _email, string _password, string _username)
+    public IEnumerator Register(string Email, string Password, string UserName)
     {
         {
-            var RegisterTask = _auth.CreateUserWithEmailAndPasswordAsync(_email, _password);
+            var RegisterTask = _auth.CreateUserWithEmailAndPasswordAsync(Email, Password);
 
             yield return new WaitUntil(predicate: () => RegisterTask.IsCompleted);
 
@@ -131,7 +137,7 @@ public class FireBaseManager : MonoBehaviour
                         message = "Email Already In Use";
                         break;
                 }
-                ErrorHappens.Invoke(message);
+                ErrorEvent.Invoke(message);
             }
             else
             {
@@ -139,7 +145,7 @@ public class FireBaseManager : MonoBehaviour
 
                 if (_user != null)
                 {
-                    UserProfile profile = new UserProfile { DisplayName = _username };
+                    UserProfile profile = new UserProfile { DisplayName = UserName };
 
                     var ProfileTask = _user.UpdateUserProfileAsync(profile);
 
@@ -150,7 +156,7 @@ public class FireBaseManager : MonoBehaviour
                         Debug.LogWarning(message: $"Failed to register task with {ProfileTask.Exception}");
                         FirebaseException firebaseEx = ProfileTask.Exception.GetBaseException() as FirebaseException;
                         AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
-                        ErrorHappens.Invoke("Username Set Failed!");
+                        ErrorEvent.Invoke("Username Set Failed!");
 
                     }
                     else

@@ -7,7 +7,7 @@ using System;
 public class AdManager : MonoBehaviour
 {
 
-    public Action RewardPlayer;
+    public event Action RewardPlayer;
 
     private string _adUnitId = "ca-app-pub-3940256099942544/5224354917";
     private RewardedAd _rewardedAd;
@@ -27,21 +27,21 @@ public class AdManager : MonoBehaviour
 
         Debug.Log("Loading the rewarded ad.");
 
-        var adRequest = new AdRequest();
+        var AdRequest = new AdRequest();
 
-        RewardedAd.Load(_adUnitId, adRequest, (RewardedAd ad, LoadAdError error) =>
+        RewardedAd.Load(_adUnitId, AdRequest, (RewardedAd Ad, LoadAdError Error) =>
             {
-                if (error != null || ad == null)
+                if (Error != null || Ad == null)
                 {
                     Debug.LogError("Rewarded ad failed to load an ad " +
-                                   "with error : " + error);
+                                   "with error : " + Error);
                     return;
                 }
 
                 Debug.Log("Rewarded ad loaded with response : "
-                          + ad.GetResponseInfo());
+                          + Ad.GetResponseInfo());
 
-                _rewardedAd = ad; 
+                _rewardedAd = Ad; 
             });
         
     }

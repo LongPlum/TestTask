@@ -13,7 +13,7 @@ public class Login : MonoBehaviour
 
     private void Start()
     {
-        _fireBaseManager.ErrorHappens += (text) => _warningLoginText.text = text;
+        _fireBaseManager.ErrorEvent += (text) => _warningLoginText.text = text;
     }
 
     public void LoginButton()

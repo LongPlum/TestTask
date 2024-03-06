@@ -16,7 +16,7 @@ public class Registration : MonoBehaviour
 
     private void Start()
     {
-        _fireBaseManager.ErrorHappens += (text) => _warningRegisterText.text = text;
+        _fireBaseManager.ErrorEvent += (text) => _warningRegisterText.text = text;
     }
     public void RegisterButton()
     {

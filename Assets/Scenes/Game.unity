@@ -173,7 +173,7 @@ MonoBehaviour:
   _pauseManager: {fileID: 1161682633}
   _adManager: {fileID: 597353933}
   _ad: {fileID: 2003344678}
-  _secToShowAd: 3
+  _secToShowAd: 7
 --- !u!1 &137941069
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ RectTransform:
   m_Father: {fileID: 1989566120}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -858,9 +858,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 829003522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 540, y: -133.4}
   m_SizeDelta: {x: 160, y: 130.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &731028080
@@ -1086,8 +1086,9 @@ GameObject:
   - component: {fileID: 912333184}
   - component: {fileID: 912333183}
   - component: {fileID: 912333182}
+  - component: {fileID: 912333185}
   m_Layer: 0
-  m_Name: Scroll View
+  m_Name: LeaderBoardSView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1109,9 +1110,9 @@ RectTransform:
   - {fileID: 1686999319}
   m_Father: {fileID: 829003522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 540, y: -1136.471}
   m_SizeDelta: {x: 929, y: 1424.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &912333182
@@ -1138,7 +1139,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1686999320}
   m_HorizontalScrollbarVisibility: 2
-  m_VerticalScrollbarVisibility: 2
+  m_VerticalScrollbarVisibility: 0
   m_HorizontalScrollbarSpacing: -3
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
@@ -1182,6 +1183,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912333180}
   m_CullTransparentMesh: 1
+--- !u!114 &912333185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912333180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b1bf19893b54f245a56fc48a76b5a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerCard: {fileID: 962323778024158190, guid: 0e4600c82ecfa7145983a8788af843be, type: 3}
 --- !u!1 &939437234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,9 +1705,9 @@ RectTransform:
   m_Father: {fileID: 912333181}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1083443472
 MonoBehaviour:
@@ -2090,9 +2104,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 829003522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 540, y: -311.4905}
   m_SizeDelta: {x: 698.6741, y: 122.903}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1186127894
@@ -2766,6 +2780,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1479961226}
+  - component: {fileID: 1479961227}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -2789,9 +2804,35 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000021455187}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchoredPosition: {x: 0, y: -0.00012309423}
+  m_SizeDelta: {x: 14.9209, y: 310.325}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &1479961227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479961225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 30
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 60
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1490458881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2846,7 +2887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1574903122
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2976,7 +3017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnTimer: 1
-  _spawnDelayTime: 0
+  _spawnDelayTime: 4
   _obstacleStartMoveSpeed: 3
   _obstaclePool: {fileID: 628915047}
   _playerCollision: {fileID: 581772848}
@@ -3189,7 +3230,7 @@ MonoBehaviour:
   m_Direction: 2
   m_Value: 0
   m_Size: 1
-  m_NumberOfSteps: 0
+  m_NumberOfSteps: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3206,7 +3247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4180,7 +4221,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2003344678}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d42d00c31d88304298fcaceadf2afe0, type: 3}
   m_Name: 
@@ -4825,6 +4866,10 @@ PrefabInstance:
       propertyPath: _obstaclePool
       value: 
       objectReference: {fileID: 628915047}
+    - target: {fileID: 4280649877067089610, guid: e19994782fbf97940896842391bafe1d, type: 3}
+      propertyPath: _fireBaseManager
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4280649877067089610, guid: e19994782fbf97940896842391bafe1d, type: 3}
       propertyPath: _playerAnimation
       value: 
