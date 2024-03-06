@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Registration : MonoBehaviour
 {
-    [SerializeField] FireBaseManager _fireBaseManager;
+    [SerializeField] private FireBaseManager _fireBaseManager;
 
     [SerializeField] private TMP_InputField _emailRegisterField;
     [SerializeField] private TMP_InputField _loginRegisterField;

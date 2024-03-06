@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     public float Score { get; private set; }
 
     
-    public Action GameStarted;
+    public event Action GameStarted;
 
 
     private IEnumerator EnableAdCanvas()
@@ -86,13 +86,8 @@ public class LevelManager : MonoBehaviour
 
         if (_isLevelBegin && !_isGamePaused)
         {
-
-            GameTime += Time.deltaTime;
-            if (Math.Round(GameTime % 1) == 0)
-            {
-                Score += 1;
-            }
-
+            Score += Time.deltaTime;
+            
             _accelerationTimeCounter += Time.deltaTime;
 
             if (_accelerationTimeCounter >= 5)

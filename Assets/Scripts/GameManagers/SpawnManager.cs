@@ -49,9 +49,9 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider Other)
     {
-        if (other.transform.parent.TryGetComponent<Obstacle>(out Obstacle obs))
+        if (Other.transform.parent.TryGetComponent<Obstacle>(out Obstacle obs))
         {
             _obstaclePool.ReleaseObstacle(obs.gameObject);
         }
@@ -75,9 +75,9 @@ public class SpawnManager : MonoBehaviour
         }
     }   
     
-    private IEnumerator DelaySpawn(float _spawnDelayTime)
+    private IEnumerator DelaySpawn(float SpawnDelayTime)
     {
-        yield return new WaitForSeconds(_spawnDelayTime);
+        yield return new WaitForSeconds(SpawnDelayTime);
         _isSpawnDelayed = true;
     }
 }

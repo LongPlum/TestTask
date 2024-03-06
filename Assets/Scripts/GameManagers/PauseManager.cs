@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
-    public Action GamePaused;
-    public Action GameResumed;
+    public event Action GamePaused;
+    public event Action GameResumed;
 
     public void Pause()
     {

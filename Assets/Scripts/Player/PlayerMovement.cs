@@ -39,15 +39,15 @@ public class PlayerMovement : MonoBehaviour
         _moveVertical = Input.GetAxis("Vertical");
     }
 
-    private void PlayerPhoneInput(Touch touchInput)
+    private void PlayerPhoneInput(Touch TouchInput)
     {
-        switch (touchInput.phase)
+        switch (TouchInput.phase)
         {
             case TouchPhase.Began:
-                _beginTouchPos = touchInput.position;
+                _beginTouchPos = TouchInput.position;
                 break;
             case TouchPhase.Moved:
-                _moveTouchPos = touchInput.position;
+                _moveTouchPos = TouchInput.position;
                 if (Vector2.Distance(_beginTouchPos, _moveTouchPos) > _minDistanceForSwipe)
                 {
                     _swipeDirection = _beginTouchPos - _moveTouchPos;
@@ -67,10 +67,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void StopAllMovementCoroutines()
-    {
-        StopAllCoroutines();
-    }
 
     private IEnumerator SlideEnableMovement()
     {
@@ -88,11 +84,11 @@ public class PlayerMovement : MonoBehaviour
         return new Vector3(_moveHorizontal * _moveSpeed * Time.deltaTime, _gravityAcc * Time.deltaTime, 0);
     }
 
-    private void CheckNextPos(Vector3 posNext)
+    private void CheckNextPos(Vector3 PosNext)
     {
-        _isGrounded = _isUnderGround = posNext.y <= _playerColliderY;
-        _isLeftBorder = posNext.x <= -_bounds;
-        _isRightBorder = posNext.x >= _bounds;
+        _isGrounded = _isUnderGround = PosNext.y <= _playerColliderY;
+        _isLeftBorder = PosNext.x <= -_bounds;
+        _isRightBorder = PosNext.x >= _bounds;
     }
 
 

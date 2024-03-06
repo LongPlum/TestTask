@@ -17,9 +17,9 @@ public class PlayerCollision : MonoBehaviour
     public event Action GameOver;
 
    
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider Other)
     {
-        if (other.transform.parent.TryGetComponent<Obstacle>(out Obstacle obs))
+        if (Other.transform.parent.TryGetComponent<Obstacle>(out Obstacle obs))
         {
             GameOver.Invoke();
             _obstaclePool.ReleaseObstacle(obs.gameObject);

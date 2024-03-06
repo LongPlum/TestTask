@@ -40,7 +40,6 @@ public class AdManager : MonoBehaviour
 
                 Debug.Log("Rewarded ad loaded with response : "
                           + Ad.GetResponseInfo());
-
                 _rewardedAd = Ad; 
             });
         

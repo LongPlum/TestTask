@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Login : MonoBehaviour
 {
-    [SerializeField] FireBaseManager _fireBaseManager;
+    [SerializeField] private FireBaseManager _fireBaseManager;
 
     [SerializeField] private TMP_InputField _emailLoginField;
     [SerializeField] private TMP_InputField _passwordLoginField;
