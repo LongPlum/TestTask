@@ -153,7 +153,6 @@ public class PlayerMovement : MonoBehaviour
                 if (_moveVertical < 0) 
                 {
                     _playerAnimation.PlayerSlide();
-                    Debug.Log("slide");
                     DisableMovement();
                     StartCoroutine(SlideEnableMovement());
                 }
@@ -166,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (dir != Vector3.zero)
+            if (dir != Vector3.zero || _moveVertical != 0)
             {
                 transform.Translate(dir);
                 _moveHorizontal = _moveVertical = 0;

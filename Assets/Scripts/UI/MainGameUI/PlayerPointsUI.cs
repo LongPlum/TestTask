@@ -19,7 +19,7 @@ public class PlayerPointsUI : MonoBehaviour
     {
         if (_isGameStarted)
         {
-            _score.text = _levelManager.Score.ToString("0.");
+            _score.text = _levelManager.Score.ToString();
         }
     }
 

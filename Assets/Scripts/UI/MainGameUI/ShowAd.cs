@@ -29,7 +29,7 @@ public class ShowAd : MonoBehaviour
 
     private void WaitToShowAd()
     {
-        if (!_isAdWasUsed)
+        if (!_isAdWasUsed && _levelManager.IsLevelBegin)
         {
             _adCoroutine = StartCoroutine(ShowAdCoroutine());
         }
@@ -37,6 +37,7 @@ public class ShowAd : MonoBehaviour
 
     private void StopAdCoroutine()
     {
+        if(_adCoroutine != null)
         StopCoroutine(_adCoroutine);
     }
 

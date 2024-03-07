@@ -30,7 +30,6 @@ public class SpawnManager : MonoBehaviour
         _playerCollision.GameOver += StopAllObstacles;
 
         _obstacleEnumValues = (ObstaclePoolItem[])Enum.GetValues(typeof(ObstaclePoolItem));
-        StartCoroutine(DelaySpawn(_spawnDelayTime));
     }
 
     private void Update()
@@ -60,8 +59,9 @@ public class SpawnManager : MonoBehaviour
     private void StartSpawn()
     {
         _isSpawnAllowed = true;
+        StartCoroutine(DelaySpawn(_spawnDelayTime));
     }
-    
+
     private void StopSpawn()
     {
         _isSpawnAllowed = false;

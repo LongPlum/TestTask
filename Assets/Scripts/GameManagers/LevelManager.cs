@@ -15,12 +15,13 @@ public class LevelManager : MonoBehaviour
 
 
     private float _accelerationTimeCounter;
-    private bool _isLevelBegin;
     private bool _isGamePaused;
+
+    public bool IsLevelBegin { get; private set; }
 
     public float GameTime { get; private set; }
     public float Acceleration { get; private set; }
-    public float Score { get; set; }
+    public int Score { get; set; }
 
     
     public event Action GameStarted;
@@ -35,7 +36,7 @@ public class LevelManager : MonoBehaviour
     }
     private void StopLevel()
     {
-        _isLevelBegin = false;
+        IsLevelBegin = false;
     }
 
     void Start()
@@ -49,17 +50,19 @@ public class LevelManager : MonoBehaviour
     {
         GameStarted.Invoke();
         _playerAnimation.StartRunning();
-        _isLevelBegin = true;
+        IsLevelBegin = true;
         _startButton.SetActive(false);
     }
 
     void Update()
     {
 
-        if (_isLevelBegin && !_isGamePaused)
+        if (IsLevelBegin && !_isGamePaused)
         {
-            GameTime = Score += Time.deltaTime;
-            
+            GameTime += Time.deltaTime;
+            Score += Mathf.CeilToInt(Time.deltaTime);
+
+
             _accelerationTimeCounter += Time.deltaTime;
 
             if (_accelerationTimeCounter >= 5)
