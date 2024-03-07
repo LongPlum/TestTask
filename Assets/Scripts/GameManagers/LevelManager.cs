@@ -10,9 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private PauseManager _pauseManager;
-    [SerializeField] private AdManager _adManager;
-    [SerializeField] private GameObject _ad;
-    [SerializeField] private float _secToShowAd = 3;
+
 
     private float _accelerationTimeCounter;
     private bool _isLevelBegin;
@@ -21,22 +19,11 @@ public class LevelManager : MonoBehaviour
 
     public float GameTime { get; private set; }
     public float Acceleration { get; private set; }
-    public float Score { get; private set; }
+    public float Score { get; set; }
 
     
     public event Action GameStarted;
 
-
-    private IEnumerator EnableAdCanvas()
-    {
-        yield return new WaitForSeconds(_secToShowAd);
-        _ad.SetActive(true);
-    }
-
-    private void RewardPlayer()
-    {
-        Score *= 2;
-    }
     private void PauseGame()
     {
         _isGamePaused = true;
@@ -55,7 +42,6 @@ public class LevelManager : MonoBehaviour
         _playerCollision.GameOver += StopLevel;
         _pauseManager.GamePaused += PauseGame;
         _pauseManager.GameResumed += ResumeGame;
-        _adManager.RewardPlayer += RewardPlayer;
         _isGameWasStarted = true;
     }
 
@@ -71,7 +57,7 @@ public class LevelManager : MonoBehaviour
             _playerAnimation.StartRunning();
             _isLevelBegin = true;
             _isGameWasStarted = false;
-            StartCoroutine(EnableAdCanvas());
+
         }
 #endif
         if (Input.touchCount == 1 && !_isLevelBegin && _isGameWasStarted)
@@ -80,7 +66,6 @@ public class LevelManager : MonoBehaviour
             _playerAnimation.StartRunning();
             _isLevelBegin = true;
             _isGameWasStarted = false;
-            StartCoroutine(EnableAdCanvas());
         }
 
 

@@ -1,26 +1,49 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShowAd : MonoBehaviour
 {
     [SerializeField] private PauseManager _pauseManager;
     [SerializeField] private AdManager _adManager;
+    [SerializeField] private LevelManager _levelManager;
+    [SerializeField] private float _secToShowAd = 7;
+
+    private Coroutine _adCoroutine;
+    private bool _isAdWasUsed;
 
     private void Awake()
     {
-        _adManager.RewardPlayer += PlayerRewarded;    
-    }
-
-    private void OnEnable()
-    {
-        _pauseManager.Pause(); 
-        _adManager.PlayRewardedAd();
+        _levelManager.GameStarted += WaitToShowAd;
+        _adManager.RewardPlayer += PlayerRewarded;
+        _pauseManager.GamePaused += StopAdCoroutine;
+        _pauseManager.GameResumed += WaitToShowAd;
     }
 
     public void PlayerRewarded()
     {
+        _levelManager.Score *= 2;
         _pauseManager.Resume();
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); 
+        _isAdWasUsed = true;
+    }
+
+    private void WaitToShowAd()
+    {
+        if (!_isAdWasUsed)
+        {
+            _adCoroutine = StartCoroutine(ShowAdCoroutine());
+        }
+    }
+
+    private void StopAdCoroutine()
+    {
+        StopCoroutine(_adCoroutine);
+    }
+
+    private IEnumerator ShowAdCoroutine()
+    {
+        yield return new WaitForSeconds(_secToShowAd);
+        _pauseManager.Pause();
+        _adManager.PlayRewardedAd();
     }
 }
