@@ -10,11 +10,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private PauseManager _pauseManager;
+    [SerializeField] private GameObject _startButton;
+
 
 
     private float _accelerationTimeCounter;
     private bool _isLevelBegin;
-    private bool _isGameWasStarted;
     private bool _isGamePaused;
 
     public float GameTime { get; private set; }
@@ -42,32 +43,18 @@ public class LevelManager : MonoBehaviour
         _playerCollision.GameOver += StopLevel;
         _pauseManager.GamePaused += PauseGame;
         _pauseManager.GameResumed += ResumeGame;
-        _isGameWasStarted = true;
+    }
+
+    public void StartGameClick()
+    {
+        GameStarted.Invoke();
+        _playerAnimation.StartRunning();
+        _isLevelBegin = true;
+        _startButton.SetActive(false);
     }
 
     void Update()
     {
-
-
-#if UNITY_EDITOR
-
-        if (Input.GetKeyDown(KeyCode.Space) && !_isLevelBegin && _isGameWasStarted)
-        {
-            GameStarted.Invoke();
-            _playerAnimation.StartRunning();
-            _isLevelBegin = true;
-            _isGameWasStarted = false;
-
-        }
-#endif
-        if (Input.touchCount == 1 && !_isLevelBegin && _isGameWasStarted)
-        {
-            GameStarted.Invoke();
-            _playerAnimation.StartRunning();
-            _isLevelBegin = true;
-            _isGameWasStarted = false;
-        }
-
 
         if (_isLevelBegin && !_isGamePaused)
         {
