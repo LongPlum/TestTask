@@ -15,6 +15,7 @@ public class AdManager : MonoBehaviour
     private void Awake()
     {
         MobileAds.Initialize(InitializationStatus => { });
+        LoadRewardedAd();
     }
 
     private void LoadRewardedAd()
@@ -47,7 +48,6 @@ public class AdManager : MonoBehaviour
 
    public void PlayRewardedAd()
     {
-        LoadRewardedAd();
         if (_rewardedAd.CanShowAd())
         {
             _rewardedAd.Show((Reward reward) => RewardPlayer.Invoke());

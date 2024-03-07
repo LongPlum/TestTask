@@ -147,19 +147,13 @@ public class PlayerMovement : MonoBehaviour
                 _gravityAcc = Mathf.Max(0, _gravityAcc);
             }
 
-            if (dir != Vector3.zero)
-            {
-                transform.Translate(dir);
-                _moveHorizontal = _moveVertical = 0;
-                _isJump = false;
-            }
-
 
             if (_isGrounded)
             {
                 if (_moveVertical < 0) 
                 {
                     _playerAnimation.PlayerSlide();
+                    Debug.Log("slide");
                     DisableMovement();
                     StartCoroutine(SlideEnableMovement());
                 }
@@ -172,7 +166,12 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-           
+            if (dir != Vector3.zero)
+            {
+                transform.Translate(dir);
+                _moveHorizontal = _moveVertical = 0;
+                _isJump = false;
+            }
 
             if (_isUnderGround)
             {
