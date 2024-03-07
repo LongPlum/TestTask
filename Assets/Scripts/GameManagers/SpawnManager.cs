@@ -46,6 +46,7 @@ public class SpawnManager : MonoBehaviour
                 _timer = 0f;
             }
         }
+
     }
 
     private void OnTriggerEnter(Collider Other)
@@ -54,6 +55,8 @@ public class SpawnManager : MonoBehaviour
         {
             _obstaclePool.ReleaseObstacle(obs.gameObject);
         }
+        else
+            Destroy(Other.gameObject);
     }
 
     private void StartSpawn()
