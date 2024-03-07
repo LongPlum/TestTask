@@ -71,7 +71,7 @@ public class LevelManager : MonoBehaviour
 
         if (_isLevelBegin && !_isGamePaused)
         {
-            Score += Time.deltaTime;
+            GameTime = Score += Time.deltaTime;
             
             _accelerationTimeCounter += Time.deltaTime;
 

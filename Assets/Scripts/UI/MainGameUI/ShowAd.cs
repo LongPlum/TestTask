@@ -42,8 +42,11 @@ public class ShowAd : MonoBehaviour
 
     private IEnumerator ShowAdCoroutine()
     {
+        _secToShowAd = _secToShowAd - Mathf.Round( _levelManager.GameTime);
         yield return new WaitForSeconds(_secToShowAd);
         _pauseManager.Pause();
         _adManager.PlayRewardedAd();
     }
+
+  
 }
