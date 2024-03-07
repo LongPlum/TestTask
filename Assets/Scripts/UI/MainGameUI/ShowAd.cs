@@ -47,6 +47,4 @@ public class ShowAd : MonoBehaviour
         _pauseManager.Pause();
         _adManager.PlayRewardedAd();
     }
-
-  
 }
