@@ -13,6 +13,8 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private float _knockBackDistance;
     [SerializeField] private GameObject _gameOverMenu;
     [SerializeField] private PlayerAnimation _playerAnimation;
+    [SerializeField] private GameObject _player;
+
 
     public event Action GameOver;
 
@@ -24,6 +26,9 @@ public class PlayerCollision : MonoBehaviour
             GameOver.Invoke();
             _obstaclePool.ReleaseObstacle(obs.gameObject);
             _playerAnimation.PlayerDeath();
+            var Pos = _player.transform.position;
+            Pos.y += 0.1f;
+            _player.transform.position = Pos;
             _gameOverMenu.SetActive(true);
             FireBaseManager.FireBaseManagerInstance.SafeScore();
         }
