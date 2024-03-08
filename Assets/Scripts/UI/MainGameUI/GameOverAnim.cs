@@ -14,10 +14,11 @@ public class GameOverAnim : MonoBehaviour
     {
         _gameOverText = gameObject.GetComponent<TMP_Text>();
         _gameOverTextTween = DOTween.Sequence()
-            .Append(_gameOverText.transform.DOScaleY(_gameOverText.transform.localScale.y * 2 , 1))
-            .Append(_gameOverText.transform.DOScaleY(_gameOverText.transform.localScale.y, 1))
-            .Insert(0, _gameOverText.transform.DOShakeScale(2));
-        _gameOverTextTween.SetLoops(-1);
+            .Append(_gameOverText.transform.DOScaleY(_gameOverText.transform.localScale.y + 2, 0.3f))
+            .Insert(0, _gameOverText.transform.DOScaleX(_gameOverText.transform.localScale.x + 2, 0.3f))
+            .Append(_gameOverText.transform.DOScaleY(_gameOverText.transform.localScale.y + 1.5f, 1.1f))
+            .Insert(0.3f, _gameOverText.transform.DOScaleX(_gameOverText.transform.localScale.x + 1.5f, 1.1f))
+            .Insert(0.3f, _gameOverText.transform.DOShakeScale(1, 3, 11));
         _gameOverTextTween.Play();
     }
     private void OnDisable()

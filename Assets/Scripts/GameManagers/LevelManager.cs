@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private PauseManager _pauseManager;
     [SerializeField] private GameObject _startButton;
+    [SerializeField] private float _timeToIncreaseMS;
+
 
 
 
@@ -65,9 +67,9 @@ public class LevelManager : MonoBehaviour
 
             _accelerationTimeCounter += Time.deltaTime;
 
-            if (_accelerationTimeCounter >= 5)
+            if (_accelerationTimeCounter >= _timeToIncreaseMS)
             {
-                Acceleration += 0.1f;
+                Acceleration += 0.05f;
                 _accelerationTimeCounter = 0;
             }
 
