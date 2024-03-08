@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private PauseManager _pauseManager;
     [SerializeField] private GameObject _startButton;
+    [SerializeField] private List<GameObject> _backGroundList;
+    [SerializeField] private float _backGroundStartMS;
     [SerializeField] private float _timeToIncreaseMS;
 
 
@@ -44,9 +46,11 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         _playerCollision.GameOver += StopLevel;
+        _playerCollision.GameOver += StopBackGround;
         _pauseManager.GamePaused += PauseGame;
         _pauseManager.GameResumed += ResumeGame;
     }
+
 
     public void StartGameClick()
     {
@@ -54,7 +58,20 @@ public class LevelManager : MonoBehaviour
         _playerAnimation.StartRunning();
         IsLevelBegin = true;
         _startButton.SetActive(false);
+        foreach (var BackGround in _backGroundList)
+        {
+            BackGround.GetComponent<DirectionalMovement>().ObstacleMoveSpeed = _backGroundStartMS;
+        }
     }
+
+    private void StopBackGround()
+    {
+        foreach (var BackGround in _backGroundList)
+        {
+            BackGround.GetComponent<DirectionalMovement>().ObstacleMoveSpeed = 0;
+        }
+    }
+
 
     void Update()
     {

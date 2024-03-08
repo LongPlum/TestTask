@@ -9,8 +9,6 @@ using UnityEngine.SceneManagement;
 public class PlayerCollision : MonoBehaviour
 {
     [SerializeField] private ObstaclePool _obstaclePool;
-    [SerializeField] private float _knockBackDuration;
-    [SerializeField] private float _knockBackDistance;
     [SerializeField] private GameObject _gameOverMenu;
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private GameObject _player;

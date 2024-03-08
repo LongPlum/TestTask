@@ -138,7 +138,7 @@ public class ObstaclePool : MonoBehaviour
             Destroy(ObstacleToRelease);
     }
 
-    public DirectionalMovement GetDirMoveSpeedComponment(GameObject Go)
+    public DirectionalMovement GetDirMoveSpeedComponent(GameObject Go)
     {
        return _obstacleOnSceneDirMove[_obstacleOnScene.IndexOf(Go)];
     }
