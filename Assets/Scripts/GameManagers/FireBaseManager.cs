@@ -9,32 +9,46 @@ using Firebase.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 
 public class FireBaseManager : MonoBehaviour
 {
     private LevelManager _levelManager;
     private DatabaseReference _databaseReference;
     private FirebaseAuth _auth;
-    private FirebaseUser _user;
 
     public event Action<string> ErrorEvent;
 
-    public static FireBaseManager FireBaseManagerInstance { get; private set; }
+    public static FireBaseManager FireBaseManagerInstance;
 
     private void Awake()
     {
+        FireBaseManagerInstance = FireBaseManagerInstance == null ? FireBaseManagerInstance = this : FireBaseManagerInstance;
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
         _auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-        FireBaseManagerInstance = this;
         DontDestroyOnLoad(FireBaseManagerInstance);
+        SilentLogin();
     }
 
+    public void SilentLogin()
+    {
+        if (_auth.CurrentUser != null)
+        {
+            SceneManager.LoadScene("Game");
+        }
+    }
+
+    public void LogOut()
+    {
+        _auth.SignOut();
+    }
 
     public void SafeScore()
     {
         _levelManager = FindObjectOfType<LevelManager>();
 
-        _databaseReference.Child("Users").Child(_user.DisplayName).GetValueAsync().ContinueWithOnMainThread(task =>
+        _databaseReference.Child("Users").Child(_auth.CurrentUser.DisplayName).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
             {
@@ -44,7 +58,7 @@ public class FireBaseManager : MonoBehaviour
             {
                 if (task.Result.Value == null || Convert.ToSingle(task.Result.Value) < _levelManager.Score)
                 {
-                    _databaseReference.Child("Users").Child(_user.DisplayName).SetValueAsync(Convert.ToDouble(_levelManager.Score));
+                    _databaseReference.Child("Users").Child(_auth.CurrentUser.DisplayName).SetValueAsync(Convert.ToDouble(_levelManager.Score));
                 }
             }
         });
@@ -103,7 +117,6 @@ public class FireBaseManager : MonoBehaviour
         }
         else
         {
-            _user = LoginTask.Result.User;
             SceneManager.LoadScene("Game");
         }
     }
@@ -141,13 +154,11 @@ public class FireBaseManager : MonoBehaviour
             }
             else
             {
-                _user = RegisterTask.Result.User;
-
-                if (_user != null)
+                if (_auth.CurrentUser != null)
                 {
                     UserProfile profile = new UserProfile { DisplayName = UserName };
 
-                    var ProfileTask = _user.UpdateUserProfileAsync(profile);
+                    var ProfileTask = _auth.CurrentUser.UpdateUserProfileAsync(profile);
 
                     yield return new WaitUntil(predicate: () => ProfileTask.IsCompleted);
 

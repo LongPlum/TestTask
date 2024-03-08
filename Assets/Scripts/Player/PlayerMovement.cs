@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed = 7f;
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _bounds = 2f;
-    [SerializeField] private float _minDistanceForSwipe = 1f;
+    [SerializeField] private float _minDistanceForSwipe = 0.5f;
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private LevelManager _levelManager;

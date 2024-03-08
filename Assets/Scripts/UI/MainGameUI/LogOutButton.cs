@@ -8,6 +8,7 @@ public class LogOutButton : MonoBehaviour
 {
    public void LogOutClick()
     {
+     FireBaseManager.FireBaseManagerInstance.LogOut();
      SceneManager.LoadScene("Authorization");
     }
 }
