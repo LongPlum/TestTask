@@ -12,11 +12,6 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private ObstaclePool _obstaclePool;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private LevelManager _levelmanager;
-    [SerializeField] private GameObject _leftBackGroundPrefab;
-    [SerializeField] private GameObject _rightBackGroundPrefab;
-    [SerializeField] private Transform _backGroundGO;
-    [SerializeField] private RectTransform _leftBackGroundPosition;
-    [SerializeField] private RectTransform _rightBackGroundPosition;
 
 
     private GameObject _currentGameObject;
@@ -25,6 +20,7 @@ public class SpawnManager : MonoBehaviour
     private bool _isSpawnDelayed;
     private bool _isSpawnAllowed;
 
+    public event Action BackGroundCollision;
 
     private ObstaclePoolItem ItemToSpawn => _obstacleEnumValues[UnityEngine.Random.Range(0, _obstaclePool.GetPoolItemLength)];
 
@@ -45,7 +41,7 @@ public class SpawnManager : MonoBehaviour
             if (_timer >= _spawnTimer)
             {
                 _currentGameObject = _obstaclePool.TakeObstacle(ItemToSpawn);
-                _obstaclePool.GetDirMoveSpeedComponent(_currentGameObject).ObstacleMoveSpeed = _obstacleStartMoveSpeed + _levelmanager.Acceleration;
+                _obstaclePool.GetDirMoveSpeedComponent(_currentGameObject).MoveSpeed = _obstacleStartMoveSpeed + _levelmanager.Acceleration;
                 _currentGameObject.transform.position = new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), 0, UnityEngine.Random.Range(25, 30));
 
                 _timer = 0f;
@@ -59,10 +55,9 @@ public class SpawnManager : MonoBehaviour
         {
             _obstaclePool.ReleaseObstacle(Obs.gameObject);
         }
-        else if (Other.transform.parent.TryGetComponent<BackGround>(out BackGround BackGround))
+        else if (Other.TryGetComponent<BackGround>(out _))
         {
-            Destroy(Other.gameObject);
-            SpawnBackGround();
+            //BackGroundCollision.Invoke();
         }
     }
 
@@ -76,23 +71,12 @@ public class SpawnManager : MonoBehaviour
     {
         _isSpawnAllowed = false;
     }
-
-    private void SpawnBackGround()
-    {
-       var Go = Instantiate(_leftBackGroundPrefab);
-        Go.transform.position = _leftBackGroundPosition.position;
-
-        var Go2 = Instantiate(_rightBackGroundPrefab);
-        Go2.transform.position = _rightBackGroundPosition.position;
-    }
-
    
-
     private void StopAllObstacles()
     {
         foreach (var obstacle in _obstaclePool.ObstacleOnSceneDirMove)
         {
-            obstacle.ObstacleMoveSpeed = 0;
+            obstacle.MoveSpeed = 0;
         }
     }   
     

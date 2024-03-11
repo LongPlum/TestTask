@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DirectionalMovement : MonoBehaviour
 {
-    public float ObstacleMoveSpeed { get; set; }
+    public float MoveSpeed { get; set; }
 
     void Update()
     {
-        transform.Translate(ObstacleMoveSpeed * Time.deltaTime * Vector3.back);
+        transform.Translate(MoveSpeed * Time.deltaTime * Vector3.back);
     }
 }
