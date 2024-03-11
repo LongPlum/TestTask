@@ -144,7 +144,7 @@ public class ObstaclePool : MonoBehaviour
     }
 }
 
-    public enum ObstaclePoolItem
+ public enum ObstaclePoolItem
 {
     Obstacle_Branch,
     Obstacle_Log,

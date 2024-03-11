@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BackGround : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private BackGroundType _type; 
 
-    // Update is called once per frame
-    void Update()
+    public BackGroundType GetBGType()
     {
-        
+        return _type;
     }
+}
+public enum BackGroundType
+{
+    Left_BackGround,
+    Right_BackGround
 }

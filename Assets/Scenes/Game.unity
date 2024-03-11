@@ -173,9 +173,11 @@ MonoBehaviour:
   _pauseManager: {fileID: 1161682633}
   _spawnManager: {fileID: 1648977018}
   _startButton: {fileID: 1085460929}
-  _timeToIncreaseMS: 5
+  _timeToIncreaseMS: 1
   _leftBackGround: {fileID: 760412749}
   _rightBackGround: {fileID: 1657028245}
+  _leftSpawnPos: {fileID: 760412750}
+  _rightSpawnPos: {fileID: 1425044340}
   _backGroundStartMS: 3
 --- !u!1 &137941069
 GameObject:
@@ -1444,6 +1446,11 @@ RectTransform:
 --- !u!1 &760412749 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4164312389756956110, guid: d7e3ee9ffb6fbc44fba6155cd6278212, type: 3}
+  m_PrefabInstance: {fileID: 760412747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &760412750 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6454389199951822835, guid: d7e3ee9ffb6fbc44fba6155cd6278212, type: 3}
   m_PrefabInstance: {fileID: 760412747}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &829003521
@@ -3382,6 +3389,11 @@ Transform:
   - {fileID: 760412748}
   m_Father: {fileID: 1788181640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1425044340 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2753753863241211771, guid: 1fe71e29d8e7201469b4a3ce7915acaf, type: 3}
+  m_PrefabInstance: {fileID: 848556295924643698}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1479961225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3770,7 +3782,7 @@ Transform:
   m_GameObject: {fileID: 1648977016}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -7}
+  m_LocalPosition: {x: 0, y: 0, z: -6.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3813,8 +3825,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 30.3, y: 5, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 50.2, y: 7.2, z: 1}
+  m_Center: {x: 0, y: 0, z: 1.52}
 --- !u!1 &1657028245 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8578812451192888927, guid: 1fe71e29d8e7201469b4a3ce7915acaf, type: 3}
@@ -5271,10 +5283,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1424700787}
     m_Modifications:
-    - target: {fileID: -2195922047142820834, guid: 1fe71e29d8e7201469b4a3ce7915acaf, type: 3}
-      propertyPath: m_Mass
-      value: 0.0000001
-      objectReference: {fileID: 0}
     - target: {fileID: 8259434210444158817, guid: 1fe71e29d8e7201469b4a3ce7915acaf, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

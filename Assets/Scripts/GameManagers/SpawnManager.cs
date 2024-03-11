@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private float _spawnTimer = 0.5f;
     [SerializeField] private float _spawnDelayTime = 4f;
-    [SerializeField] private float _obstacleStartMoveSpeed = 10f;
+    [SerializeField] private float _obstacleStartMoveSpeed = 3f;
     [SerializeField] private ObstaclePool _obstaclePool;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private LevelManager _levelmanager;
@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
     private bool _isSpawnDelayed;
     private bool _isSpawnAllowed;
 
-    public event Action BackGroundCollision;
+    public event Action<GameObject> BackGroundCollision;
 
     private ObstaclePoolItem ItemToSpawn => _obstacleEnumValues[UnityEngine.Random.Range(0, _obstaclePool.GetPoolItemLength)];
 
@@ -55,9 +55,9 @@ public class SpawnManager : MonoBehaviour
         {
             _obstaclePool.ReleaseObstacle(Obs.gameObject);
         }
-        else if (Other.TryGetComponent<BackGround>(out _))
+        else if (Other.TryGetComponent<BackGround>(out BackGround BG))
         {
-            //BackGroundCollision.Invoke();
+            BackGroundCollision.Invoke(BG.gameObject);
         }
     }
 

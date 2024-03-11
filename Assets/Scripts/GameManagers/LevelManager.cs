@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LevelManager : MonoBehaviour
 {
@@ -15,12 +16,16 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float _timeToIncreaseMS;
     [SerializeField] private GameObject _leftBackGround;
     [SerializeField] private GameObject _rightBackGround;
+    [SerializeField] private Transform _leftSpawnPos;
+    [SerializeField] private Transform _rightSpawnPos;
     [SerializeField] private float _backGroundStartMS;
 
     private float _accelerationTimeCounter;
     private bool _isGamePaused;
     private DirectionalMovement _leftDirMove;
     private DirectionalMovement _rightDirMove;
+    private Vector3 _rightPosition;
+    private Vector3 _leftPosition;
 
 
     public bool IsLevelBegin { get; private set; }
@@ -50,8 +55,11 @@ public class LevelManager : MonoBehaviour
         _playerCollision.GameOver += StopBackGround;
         _pauseManager.GamePaused += PauseGame;
         _pauseManager.GameResumed += ResumeGame;
+        _spawnManager.BackGroundCollision += TranslateBackGroud;
         _leftDirMove = _leftBackGround.GetComponent<DirectionalMovement>();
         _rightDirMove = _rightBackGround.GetComponent<DirectionalMovement>();
+        _rightPosition = _rightSpawnPos.transform.position;
+        _leftPosition = _leftSpawnPos.transform.position;
     }
 
 
@@ -71,6 +79,15 @@ public class LevelManager : MonoBehaviour
         _rightDirMove.MoveSpeed = 0;
     }
 
+    private void TranslateBackGroud(GameObject BG)
+    {
+        if (BG.GetComponent<BackGround>().GetBGType() == BackGroundType.Left_BackGround)
+        {
+            BG.transform.position = _leftPosition;
+        }
+        else
+         BG.transform.position = _rightPosition;
+    }
 
     void Update()
     {
@@ -85,20 +102,22 @@ public class LevelManager : MonoBehaviour
 
             if (_accelerationTimeCounter >= _timeToIncreaseMS)
             {
-                Acceleration += 0.05f;
+                Acceleration += 0.5f;
                 
                 _accelerationTimeCounter = 0;
-            }
-            if (_obstaclePool.ObstacleOnSceneDirMove.Count > 0)
-            {
-                foreach (var Component in _obstaclePool.ObstacleOnSceneDirMove)
-                {
-                    Component.MoveSpeed += Acceleration;
-                }
-            }
-            _leftDirMove.MoveSpeed += Acceleration;
-            _rightDirMove.MoveSpeed += Acceleration;
 
+                if (_obstaclePool.ObstacleOnSceneDirMove.Count > 0)
+                {
+                    foreach (var Component in _obstaclePool.ObstacleOnSceneDirMove)
+                    {
+                        Component.MoveSpeed = _backGroundStartMS + Acceleration;
+                        Debug.Log(Component.MoveSpeed + " OBS " + Acceleration);
+                    }
+                }
+                _leftDirMove.MoveSpeed = _backGroundStartMS + Acceleration;
+                _rightDirMove.MoveSpeed = _backGroundStartMS + Acceleration;
+                Debug.Log(_leftDirMove.MoveSpeed + " BG " + Acceleration);
+            }
         }
     }
 }
