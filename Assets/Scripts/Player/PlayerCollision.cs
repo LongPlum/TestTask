@@ -24,11 +24,7 @@ public class PlayerCollision : MonoBehaviour
             GameOver.Invoke();
             _obstaclePool.ReleaseObstacle(obs.gameObject);
             _playerAnimation.PlayerDeath();
-            var Pos = _player.transform.position;
-            Pos.y += 0.1f;
-            _player.transform.position = Pos;
             _gameOverMenu.SetActive(true);
-            FireBaseManager.FireBaseManagerInstance.SafeScore();
         }
     
     }

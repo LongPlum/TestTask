@@ -9,6 +9,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float _spawnTimer = 0.5f;
     [SerializeField] private float _spawnDelayTime = 4f;
     [SerializeField] private float _obstacleStartMoveSpeed = 3f;
+    [SerializeField] private ShowAd _ad;
     [SerializeField] private ObstaclePool _obstaclePool;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private LevelManager _levelmanager;
@@ -29,6 +30,7 @@ public class SpawnManager : MonoBehaviour
         _levelmanager.GameStarted += StartSpawn;
         _playerCollision.GameOver += StopSpawn;
         _playerCollision.GameOver += StopAllObstacles;
+        _ad.Resurrection += StartSpawn;
 
         _obstacleEnumValues = (ObstaclePoolItem[])Enum.GetValues(typeof(ObstaclePoolItem));
     }

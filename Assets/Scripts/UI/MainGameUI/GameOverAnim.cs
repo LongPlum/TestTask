@@ -10,9 +10,13 @@ public class GameOverAnim : MonoBehaviour
     private TMP_Text _gameOverText;
     private Sequence _gameOverTextTween;
 
-    void OnEnable()
+    private void Awake()
     {
         _gameOverText = gameObject.GetComponent<TMP_Text>();
+    }
+
+    void OnEnable()
+    {
         _gameOverTextTween = DOTween.Sequence()
             .Append(_gameOverText.transform.DOScaleY(_gameOverText.transform.localScale.y + 1.8f, 0.3f))
             .Insert(0, _gameOverText.transform.DOScaleX(_gameOverText.transform.localScale.x + 1.8f, 0.3f))
@@ -23,6 +27,7 @@ public class GameOverAnim : MonoBehaviour
     }
     private void OnDisable()
     {
+        _gameOverText.transform.localScale = Vector3.zero;
         _gameOverTextTween.Kill();
     }
 

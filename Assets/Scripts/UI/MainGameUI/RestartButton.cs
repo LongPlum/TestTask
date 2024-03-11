@@ -7,6 +7,7 @@ public class RestartButton : MonoBehaviour
 {
    public void RestartGame()
     {
+        FireBaseManager.FireBaseManagerInstance.SafeScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

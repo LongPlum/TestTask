@@ -43,10 +43,17 @@ public class LevelManager : MonoBehaviour
     private void ResumeGame()
     {
         _isGamePaused = false;
+        IsLevelBegin = true;
     }
     private void StopLevel()
     {
         IsLevelBegin = false;
+    }
+
+    private void StopBackGround()
+    {
+        _leftDirMove.MoveSpeed = 0;
+        _rightDirMove.MoveSpeed = 0;
     }
 
     void Start()
@@ -73,11 +80,7 @@ public class LevelManager : MonoBehaviour
         _rightDirMove.MoveSpeed = _backGroundStartMS;
     }
 
-    private void StopBackGround()
-    {
-        _leftDirMove.MoveSpeed = 0;
-        _rightDirMove.MoveSpeed = 0;
-    }
+  
 
     private void TranslateBackGroud(GameObject BG)
     {
@@ -111,12 +114,10 @@ public class LevelManager : MonoBehaviour
                     foreach (var Component in _obstaclePool.ObstacleOnSceneDirMove)
                     {
                         Component.MoveSpeed = _backGroundStartMS + Acceleration;
-                        Debug.Log(Component.MoveSpeed + " OBS " + Acceleration);
                     }
                 }
                 _leftDirMove.MoveSpeed = _backGroundStartMS + Acceleration;
                 _rightDirMove.MoveSpeed = _backGroundStartMS + Acceleration;
-                Debug.Log(_leftDirMove.MoveSpeed + " BG " + Acceleration);
             }
         }
     }

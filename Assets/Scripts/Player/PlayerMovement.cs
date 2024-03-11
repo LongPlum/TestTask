@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _bounds = 2f;
     [SerializeField] private float _minDistanceForSwipe = 0.5f;
+    [SerializeField] private ShowAd _ad;
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private LevelManager _levelManager;
@@ -107,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
         _levelManager.GameStarted += EnableMovement;
         _playerCollision.GameOver += DisableMovement;
         _playerCollision.GameOver += StopAllCoroutines;
+        _ad.Resurrection += EnableMovement;
         _playerColliderY = _playerCollider.transform.localPosition.y; 
     }
 

@@ -1302,7 +1302,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 735467148}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2003344680}
+        m_TargetAssemblyTypeName: ShowAd, Assembly-CSharp
+        m_MethodName: PlayAdOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &735467148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3803,6 +3815,7 @@ MonoBehaviour:
   _spawnTimer: 1
   _spawnDelayTime: 4
   _obstacleStartMoveSpeed: 3
+  _ad: {fileID: 2003344680}
   _obstaclePool: {fileID: 628915047}
   _playerCollision: {fileID: 581772848}
   _levelmanager: {fileID: 118330494}
@@ -4543,7 +4556,7 @@ RectTransform:
   m_GameObject: {fileID: 1875430045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1115589954}
@@ -5025,8 +5038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseManager: {fileID: 1161682633}
   _adManager: {fileID: 597353933}
-  _levelManager: {fileID: 118330494}
-  _secToShowAd: 9
+  _gameOverMenu: {fileID: 2147338176}
 --- !u!1 &2146303430
 GameObject:
   m_ObjectHideFlags: 0
@@ -5933,6 +5945,10 @@ PrefabInstance:
       value: 176.3364
       objectReference: {fileID: 0}
     - target: {fileID: 6824741151434451021, guid: e19994782fbf97940896842391bafe1d, type: 3}
+      propertyPath: _ad
+      value: 
+      objectReference: {fileID: 2003344680}
+    - target: {fileID: 6824741151434451021, guid: e19994782fbf97940896842391bafe1d, type: 3}
       propertyPath: _playerAnimator
       value: 
       objectReference: {fileID: 581772857}
@@ -6092,6 +6108,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.4244972
       objectReference: {fileID: 0}
+    - target: {fileID: 8503706502585220887, guid: e19994782fbf97940896842391bafe1d, type: 3}
+      propertyPath: _ad
+      value: 
+      objectReference: {fileID: 2003344680}
     - target: {fileID: 8503706502585220887, guid: e19994782fbf97940896842391bafe1d, type: 3}
       propertyPath: _moveSpeed
       value: 6

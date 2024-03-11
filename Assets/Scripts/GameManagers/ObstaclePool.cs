@@ -28,7 +28,6 @@ public class ObstaclePool : MonoBehaviour
 
     private void Start()
     {
-
         var enumValues = Enum.GetNames(typeof(ObstaclePoolItem));
 
         foreach (var item in _pooledGameObjects)

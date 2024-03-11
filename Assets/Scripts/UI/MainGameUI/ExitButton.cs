@@ -6,6 +6,7 @@ public class ExitButton : MonoBehaviour
 {
     public void Exit()
     {
+        FireBaseManager.FireBaseManagerInstance.SafeScore();
         Application.Quit();
     }
 }

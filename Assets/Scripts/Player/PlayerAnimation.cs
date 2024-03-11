@@ -5,13 +5,17 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator _playerAnimator;
+    [SerializeField] private ShowAd _ad;
 
     private static readonly int _jump = Animator.StringToHash("Jump");
     private static readonly int _run = Animator.StringToHash("Run");
     private static readonly int _slide = Animator.StringToHash("Slide");
     private static readonly int _death = Animator.StringToHash("Death");
 
-
+    private void Start()
+    {
+        _ad.Resurrection += StartRunning;
+    }
 
     public void PlayerJump()
     {

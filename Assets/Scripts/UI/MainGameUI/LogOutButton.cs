@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class LogOutButton : MonoBehaviour
 {
-   public void LogOutClick()
+    public void LogOutClick()
     {
-     FireBaseManager.FireBaseManagerInstance.LogOut();
-     SceneManager.LoadScene("Authorization");
+        FireBaseManager.FireBaseManagerInstance.SafeScore();
+        FireBaseManager.FireBaseManagerInstance.LogOut();
+        SceneManager.LoadScene("Authorization");
     }
 }
