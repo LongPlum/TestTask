@@ -752,6 +752,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6771221359123130303, guid: e19994782fbf97940896842391bafe1d, type: 3}
   m_PrefabInstance: {fileID: 3429599893827745845}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &581772861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581772847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17560be8b74a1534e941d83aa96ad34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gravity: 7
+  _moveSpeed: 7
+  _jumpForce: 5
+  _bounds: 2
+  _minDistanceForSwipe: 0.5
+  _ad: {fileID: 2003344680}
+  _levelManager: {fileID: 118330494}
+  _playerAnimation: {fileID: 581772853}
+  _playerCollision: {fileID: 581772848}
+  _playerCollider: {fileID: 581772855}
 --- !u!1 &597353931
 GameObject:
   m_ObjectHideFlags: 0
@@ -6113,6 +6135,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2003344680}
     - target: {fileID: 8503706502585220887, guid: e19994782fbf97940896842391bafe1d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503706502585220887, guid: e19994782fbf97940896842391bafe1d, type: 3}
       propertyPath: _moveSpeed
       value: 6
       objectReference: {fileID: 0}
@@ -6170,9 +6196,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 469196899305327554, guid: e19994782fbf97940896842391bafe1d, type: 3}
+    - {fileID: 8503706502585220887, guid: e19994782fbf97940896842391bafe1d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6247589307576630533, guid: e19994782fbf97940896842391bafe1d, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 581772861}
     - targetCorrespondingSourceObject: {fileID: 6247589307576630533, guid: e19994782fbf97940896842391bafe1d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 581772857}

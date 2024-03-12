@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementOld : MonoBehaviour
 {
 
     [SerializeField] private float _gravity = 7f;

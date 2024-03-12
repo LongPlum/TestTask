@@ -73,7 +73,6 @@ public class LevelManager : MonoBehaviour
     public void StartGameClick()
     {
         GameStarted.Invoke();
-        _playerAnimation.StartRunning();
         IsLevelBegin = true;
         _startButton.SetActive(false);
         _leftDirMove.MoveSpeed = _backGroundStartMS;
