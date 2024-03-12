@@ -771,9 +771,6 @@ MonoBehaviour:
   _minDistanceForSwipe: 0.5
   _ad: {fileID: 2003344680}
   _levelManager: {fileID: 118330494}
-  _playerAnimation: {fileID: 581772853}
-  _playerCollision: {fileID: 581772848}
-  _playerCollider: {fileID: 581772855}
 --- !u!1 &597353931
 GameObject:
   m_ObjectHideFlags: 0

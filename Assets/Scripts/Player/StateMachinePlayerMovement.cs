@@ -22,6 +22,7 @@ public class StateMachinePlayerMovement : MonoBehaviour
     private float _moveVertical;
     private float _gravityForce;
     private float _playerGroundPosY;
+    private float _defaultGravity;
     private bool _isUnderGround;
     private bool _isLeftBorder;
     private bool _isRightBorder;
@@ -152,6 +153,7 @@ public class StateMachinePlayerMovement : MonoBehaviour
         _playerCollision = GetComponent<PlayerCollision>();
 
         _state = MovementState.Idle;
+        _defaultGravity = _gravity;
 
         _levelManager.GameStarted += GameStart;
         _ad.Resurrection += GameStart;
@@ -196,10 +198,16 @@ public class StateMachinePlayerMovement : MonoBehaviour
                 PlayerInput();
                 HorizontalMovement();
 
+                if(_moveVertical < 0)
+                {
+                    _gravity += 10;
+                }
+
                 CheckVerticalBorders();
                 if (_isUnderGround)
                 {
                     _isOnJump = false;
+                    _gravity = _defaultGravity;
                     _state = MovementState.Run;
                 }
                 break;
