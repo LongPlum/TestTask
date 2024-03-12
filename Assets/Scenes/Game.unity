@@ -170,6 +170,7 @@ MonoBehaviour:
   _obstaclePool: {fileID: 628915047}
   _playerAnimation: {fileID: 581772853}
   _playerCollision: {fileID: 581772848}
+  _ad: {fileID: 2003344680}
   _pauseManager: {fileID: 1161682633}
   _spawnManager: {fileID: 1648977018}
   _startButton: {fileID: 1085460929}
@@ -768,7 +769,7 @@ MonoBehaviour:
   _moveSpeed: 7
   _jumpForce: 5
   _bounds: 2
-  _minDistanceForSwipe: 0.5
+  _minDistanceForSwipe: 0.2
   _ad: {fileID: 2003344680}
   _levelManager: {fileID: 118330494}
 --- !u!1 &597353931
@@ -1643,7 +1644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1479961226}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -3001,6 +3002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24db94d754ae94249bf83627fd4945b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pauseManager: {fileID: 1161682633}
 --- !u!1 &1307490953
 GameObject:
   m_ObjectHideFlags: 0
@@ -3460,7 +3462,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.00012309423}
-  m_SizeDelta: {x: 14.9209, y: 310.325}
+  m_SizeDelta: {x: 14.9209, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1479961227
 MonoBehaviour:
@@ -4055,7 +4057,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 137941071}
   m_HandleRect: {fileID: 137941070}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 1
   m_OnValueChanged:

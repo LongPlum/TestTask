@@ -8,7 +8,7 @@ public class StateMachinePlayerMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed = 7f;
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _bounds = 2f;
-    [SerializeField] private float _minDistanceForSwipe = 0.5f;
+    [SerializeField] private float _minDistanceForSwipe = 0.2f;
     [SerializeField] private ShowAd _ad;
     [SerializeField] private LevelManager _levelManager;
 
@@ -26,6 +26,7 @@ public class StateMachinePlayerMovement : MonoBehaviour
     private bool _isUnderGround;
     private bool _isLeftBorder;
     private bool _isRightBorder;
+    private Coroutine _slideCoroutine;
 
     private Vector2 _beginTouchPos;
     private Vector2 _moveTouchPos;
@@ -63,6 +64,9 @@ public class StateMachinePlayerMovement : MonoBehaviour
                         _moveVertical = _swipeDirection.normalized.y * -1;
                     }
                 }
+                break;
+            case TouchPhase.Ended:
+                _moveVertical = _moveHorizontal = 0;
                 break;
             default:
                 break;
@@ -142,7 +146,10 @@ public class StateMachinePlayerMovement : MonoBehaviour
     private void GameOver()
     {
         _playerAnimation.PlayerDeath();
-        StopAllCoroutines();
+        if (_slideCoroutine != null)
+        {
+            StopCoroutine(_slideCoroutine);
+        }
         _state = MovementState.Death;
     }
     
@@ -213,10 +220,12 @@ public class StateMachinePlayerMovement : MonoBehaviour
                 break;
 
             case MovementState.Slide:
+
+                PlayerInput();
                 if (!_isOnSlide)
-                {
+                { 
                     _isOnSlide = true;
-                    StartCoroutine(WaitForSlide());
+                    _slideCoroutine = StartCoroutine(WaitForSlide());
                 }
                 break;
 

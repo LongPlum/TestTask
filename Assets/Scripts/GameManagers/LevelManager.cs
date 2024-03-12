@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private ObstaclePool _obstaclePool;
     [SerializeField] private PlayerAnimation _playerAnimation;
     [SerializeField] private PlayerCollision _playerCollision;
+    [SerializeField] private ShowAd _ad;
     [SerializeField] private PauseManager _pauseManager;
     [SerializeField] private SpawnManager _spawnManager;
     [SerializeField] private GameObject _startButton;
@@ -43,7 +44,6 @@ public class LevelManager : MonoBehaviour
     private void ResumeGame()
     {
         _isGamePaused = false;
-        IsLevelBegin = true;
     }
     private void StopLevel()
     {
@@ -56,10 +56,18 @@ public class LevelManager : MonoBehaviour
         _rightDirMove.MoveSpeed = 0;
     }
 
+    private void LevelBeginOnRevive()
+    {
+        IsLevelBegin = true;
+    }
+
+  
+
     void Start()
     {
         _playerCollision.GameOver += StopLevel;
         _playerCollision.GameOver += StopBackGround;
+        _ad.Resurrection += LevelBeginOnRevive;
         _pauseManager.GamePaused += PauseGame;
         _pauseManager.GameResumed += ResumeGame;
         _spawnManager.BackGroundCollision += TranslateBackGroud;
