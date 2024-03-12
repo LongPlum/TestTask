@@ -856,8 +856,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.8318379, z: 1}
-  m_Center: {x: 0, y: 0.97748506, z: 0}
+  m_Size: {x: 0.58, y: 1.87, z: 0.76}
+  m_Center: {x: 0, y: 0.97748506, z: 0.1}
 --- !u!114 &8503706502585220887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,6 +875,7 @@ MonoBehaviour:
   _jumpForce: 5
   _bounds: 2
   _minDistanceForSwipe: 0.5
+  _ad: {fileID: 0}
   _playerAnimation: {fileID: 6824741151434451021}
   _playerCollision: {fileID: 0}
   _levelManager: {fileID: 0}
@@ -892,8 +893,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _obstaclePool: {fileID: 0}
-  _knockBackDuration: 1
-  _knockBackDistance: 3
   _gameOverMenu: {fileID: 0}
   _playerAnimation: {fileID: 0}
   _player: {fileID: 0}
@@ -910,6 +909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAnimator: {fileID: 469196899305327554}
+  _ad: {fileID: 0}
 --- !u!95 &469196899305327554
 Animator:
   serializedVersion: 5
